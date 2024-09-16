@@ -50,7 +50,7 @@ class ConfigSeeder extends Seeder
             ],
             [
                 'code' => 'pic',
-                'value' => 'M. Iqbal Effendi',
+                'value' => 'Jang Oden',
             ],
         ]);
     }
