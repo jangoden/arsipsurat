@@ -20,6 +20,7 @@ class Config extends Model
         return $config->value;
     }
 
+
     public function scopeCode($query, \App\Enums\Config $code)
     {
         return $query->where('code', $code->value());

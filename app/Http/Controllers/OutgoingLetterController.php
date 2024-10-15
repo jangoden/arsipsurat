@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LetterType;
-use App\Http\Requests\StoreLetterRequest;
-use App\Http\Requests\UpdateLetterRequest;
-use App\Models\Attachment;
-use App\Models\Classification;
 use App\Models\Config;
 use App\Models\Letter;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Enums\LetterType;
+use App\Models\Attachment;
 use Illuminate\Http\Request;
+use App\Models\Classification;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\OutgoingLetterImport;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StoreLetterRequest;
+use App\Http\Requests\UpdateLetterRequest;
 
 class OutgoingLetterController extends Controller
 {
@@ -38,11 +41,13 @@ class OutgoingLetterController extends Controller
      */
     public function agenda(Request $request): View
     {
+        $order = $request->get('order', 'asc'); // Default order is ascending
         return view('pages.transaction.outgoing.agenda', [
-            'data' => Letter::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search),
+            'data' => Letter::outgoing()->agenda($request->since, $request->until, $request->filter)->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), $order)->render($request->search),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
+            'order' => $order,
             'filter' => $request->filter,
             'query' => $request->getQueryString(),
         ]);
@@ -193,5 +198,20 @@ class OutgoingLetterController extends Controller
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+    public function import(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'excel' => 'required|mimes:xls,xlsx',
+        ]);
+
+        $file = $request->file('excel');
+
+        Excel::import(new OutgoingLetterImport, $file);
+
+        return redirect()
+            ->route('transaction.outgoing.index')
+            ->with('success', 'Surat Keluar berhasil diimport.');
     }
 }

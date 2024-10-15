@@ -37,6 +37,7 @@ return [
         'create' => 'Tambah Baru',
         'view' => 'Lihat Detail',
         'edit' => 'Edit',
+        'import' => 'Import Excel',
         'delete' => 'Hapus',
         'print' => 'Cetak',
         'upload' => 'Unggah',
@@ -58,4 +59,5 @@ return [
         'login' => 'Masuk',
         'email_placeholder' => 'Silakan masukkan surel Anda',
     ],
+    'notaris' => 'Notaris',
 ];

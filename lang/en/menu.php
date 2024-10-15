@@ -34,6 +34,7 @@ return [
         'other_menu' => 'Other',
     ],
     'general' => [
+        'no' => 'No.',
         'create' => 'Add New',
         'view' => 'View More',
         'edit' => 'Edit',

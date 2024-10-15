@@ -39,7 +39,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('attachment.destroy');
 
     Route::prefix('transaction')->as('transaction.')->group(function () {
+        Route::post('incoming/import', [\App\Http\Controllers\IncomingLetterController::class, 'import'])->name('incoming.import');
+        Route::post('outgoing/import', [\App\Http\Controllers\OutgoingLetterController::class, 'import'])->name('outgoing.import');
         Route::resource('incoming', \App\Http\Controllers\IncomingLetterController::class);
+        Route::post('incoming/print', [\App\Http\Controllers\IncomingLetterController::class, 'import'])->name('incoming.import');
         Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);
         Route::resource('{letter}/disposition', \App\Http\Controllers\DispositionController::class)->except(['show']);
     });
@@ -51,9 +54,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('outgoing/print', [\App\Http\Controllers\OutgoingLetterController::class, 'print'])->name('outgoing.print');
     });
 
+
     Route::prefix('gallery')->as('gallery.')->group(function () {
         Route::get('incoming', [\App\Http\Controllers\LetterGalleryController::class, 'incoming'])->name('incoming');
         Route::get('outgoing', [\App\Http\Controllers\LetterGalleryController::class, 'outgoing'])->name('outgoing');
+    });
+
+    Route::middleware(['role:admin'])->group(function(){
+        Route::resource('notaris', \App\Http\Controllers\NotarisController::class)->names('notaris');
+        Route::post('notaris/import', [\App\Http\Controllers\NotarisController::class, 'import'])->name('notaris.import');
     });
 
     Route::prefix('reference')->as('reference.')->middleware(['role:admin'])->group(function () {

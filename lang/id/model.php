@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'notaris' => [
+        'nota_number' => 'NO. NOTARIS',
+        'nota_date' => 'TANGGAL',
+        'description' => 'PERIHAL',
+        'from' => 'DARI',
+        'to' => 'KEPADA',
+    ],
     'letter' => [
         'agenda_number' => 'NO AGENDA',
         'from' => 'PENGIRIM',

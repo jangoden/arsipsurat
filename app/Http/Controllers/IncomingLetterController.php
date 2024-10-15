@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LetterType;
-use App\Http\Requests\StoreLetterRequest;
-use App\Http\Requests\UpdateLetterRequest;
-use App\Models\Attachment;
-use App\Models\Classification;
 use App\Models\Config;
 use App\Models\Letter;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Enums\LetterType;
+use App\Models\Attachment;
 use Illuminate\Http\Request;
+use App\Models\Classification;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
+use App\Imports\IcomingLetterImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\StoreLetterRequest;
+use App\Http\Requests\UpdateLetterRequest;
 
 class IncomingLetterController extends Controller
 {
@@ -39,12 +42,15 @@ class IncomingLetterController extends Controller
      */
     public function agenda(Request $request): View
     {
+        $order = $request->get('order', 'asc'); // Default order is ascending
+
         return view('pages.transaction.incoming.agenda', [
-            'data' => Letter::incoming()->agenda($request->since, $request->until, $request->filter)->orderBy('agenda_number', 'desc')->render($request->search),
+            'data' => Letter::incoming()->agenda($request->since, $request->until, $request->filter)->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), $order)->render($request->search),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
             'filter' => $request->filter,
+            'order' => $order,
             'query' => $request->getQueryString(),
         ]);
     }
@@ -194,5 +200,20 @@ class IncomingLetterController extends Controller
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+    public function import(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'excel' => 'required|mimes:xls,xlsx',
+        ]);
+
+        $file = $request->file('excel');
+
+        Excel::import(new IcomingLetterImport, $file);
+
+        return redirect()
+            ->route('transaction.incoming.index')
+            ->with('success', 'Surat Masuk berhasil diimport.');
     }
 }

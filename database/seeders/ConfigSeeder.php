@@ -22,7 +22,7 @@ class ConfigSeeder extends Seeder
             ],
             [
                 'code' => 'page_size',
-                'value' => '5',
+                'value' => '25',
             ],
             [
                 'code' => 'app_name',
@@ -30,15 +30,15 @@ class ConfigSeeder extends Seeder
             ],
             [
                 'code' => 'institution_name',
-                'value' => '404nfid',
+                'value' => 'KPU KABUPATEN CIAMIS',
             ],
             [
                 'code' => 'institution_address',
-                'value' => 'Jl. Padat Karya',
+                'value' => 'Jl. Jend. Sudirman No.43, Ciamis, Kec. Ciamis, Kabupaten Ciamis, Jawa Barat 46211',
             ],
             [
                 'code' => 'institution_phone',
-                'value' => '082121212121',
+                'value' => '081324232824',
             ],
             [
                 'code' => 'institution_email',
