@@ -72,7 +72,7 @@
 
         <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('notaris.*') ? 'active' : '' }}">
             <a href="{{ route('notaris.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-note"></i>
                 <div data-i18n="{{ __('menu.notaris') }}">{{ __('menu.notaris') }}</div>
             </a>
         </li>
