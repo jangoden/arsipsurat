@@ -59,5 +59,5 @@ return [
         'login' => 'Masuk',
         'email_placeholder' => 'Silakan masukkan surel Anda',
     ],
-    'notaris' => 'Notaris',
+    'notaris' => 'Nota Dinas',
 ];

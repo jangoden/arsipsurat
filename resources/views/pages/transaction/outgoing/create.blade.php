@@ -17,13 +17,10 @@
                     <x-input-form name="to" :label="__('model.letter.to')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="agenda_number" :label="__('model.letter.agenda_number')"/>
-                </div>
-                <div class="col-sm-12 col-12 col-md-6 col-lg-12">
                     <x-input-form name="letter_date" :label="__('model.letter.letter_date')" type="date"/>
                 </div>
-                <div class="col-sm-12 col-12 col-md-12 col-lg-12">
-                    <x-input-textarea-form name="description" :label="__('model.letter.description')"/>
+                <div class="col-sm-12 col-12 col-md-6 col-lg-4">
+                    <x-input-textarea-form name="description" :label="'Tujuan Surat'"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
@@ -39,9 +36,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-12 col-12 col-md-6 col-lg-4">
+                {{-- <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <x-input-form name="note" :label="__('model.letter.note')"/>
-                </div>
+                </div> --}}
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
                         <label for="attachments" class="form-label">{{ __('model.letter.attachment') }}</label>

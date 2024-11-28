@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Config;
-use App\Models\Letter;
 use App\Enums\LetterType;
-use App\Models\Attachment;
-use Illuminate\Http\Request;
-use App\Models\Classification;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\App;
-use App\Imports\IcomingLetterImport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\StoreLetterRequest;
 use App\Http\Requests\UpdateLetterRequest;
+use App\Imports\IcomingLetterImport;
+use App\Models\Attachment;
+use App\Models\Classification;
+use App\Models\Config;
+use App\Models\Letter;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncomingLetterController extends Controller
 {
@@ -70,7 +69,7 @@ class IncomingLetterController extends Controller
             'since' => $request->since,
             'until' => $request->until,
             'filter' => $request->filter,
-            'config' => Config::pluck('value','code')->toArray(),
+            'config' => Config::pluck('value', 'code')->toArray(),
             'title' => $title,
         ]);
     }
@@ -98,15 +97,22 @@ class IncomingLetterController extends Controller
         try {
             $user = auth()->user();
 
-            if ($request->type != LetterType::INCOMING->type()) throw new \Exception(__('menu.transaction.incoming_letter'));
+            if ($request->type != LetterType::INCOMING->type()) {
+                throw new \Exception(__('menu.transaction.incoming_letter'));
+            }
+
             $newLetter = $request->validated();
             $newLetter['user_id'] = $user->id;
+            $newLetter['agenda_number'] = $this->getSecondToLastAgendaNumber();
             $letter = Letter::create($newLetter);
             if ($request->hasFile('attachments')) {
                 foreach ($request->attachments as $attachment) {
                     $extension = $attachment->getClientOriginalExtension();
-                    if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $attachment->getClientOriginalName();
+                    if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) {
+                        continue;
+                    }
+
+                    $filename = time() . '-' . $attachment->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
                     $attachment->storeAs('public/attachments', $filename);
                     Attachment::create([
@@ -166,8 +172,11 @@ class IncomingLetterController extends Controller
             if ($request->hasFile('attachments')) {
                 foreach ($request->attachments as $attachment) {
                     $extension = $attachment->getClientOriginalExtension();
-                    if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $attachment->getClientOriginalName();
+                    if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) {
+                        continue;
+                    }
+
+                    $filename = time() . '-' . $attachment->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
                     $attachment->storeAs('public/attachments', $filename);
                     Attachment::create([
@@ -216,4 +225,34 @@ class IncomingLetterController extends Controller
             ->route('transaction.incoming.index')
             ->with('success', 'Surat Masuk berhasil diimport.');
     }
+    public function getNextAgendaNumber()
+    {
+        // Ensure agenda_number is treated as an integer
+        $last = Letter::where('type', 'incoming')
+            ->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), 'desc')
+            ->first();
+        dd($last);
+
+        if ($last) {
+            return (int) $last->agenda_number + 1;
+        } else {
+            return 1;
+        }
+    }
+    public function getSecondToLastAgendaNumber()
+    {
+        // Fetch the last two agenda numbers, ordered descending
+        $lastTwo = Letter::where('type', 'incoming')
+            ->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), 'desc')
+            ->take(2)
+            ->pluck('agenda_number');
+
+        // Check if there are at least two records
+        if ($lastTwo->count() >= 2 && $lastTwo[1] <= $lastTwo[0]) {
+            return (int) $lastTwo[1] + 1; // The second-to-last agenda number
+        } else {
+            return (int) $lastTwo[0] + 1; // No records found
+        }
+    }
+
 }

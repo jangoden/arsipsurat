@@ -99,6 +99,7 @@ class OutgoingLetterController extends Controller
             if ($request->type != LetterType::OUTGOING->type()) throw new \Exception(__('menu.transaction.outgoing_letter'));
             $newLetter = $request->validated();
             $newLetter['user_id'] = $user->id;
+            $newLetter['agenda_number'] = $this->getNextAgendaNumber();
             $letter = Letter::create($newLetter);
             if ($request->hasFile('attachments')) {
                 foreach ($request->attachments as $attachment) {
@@ -213,5 +214,33 @@ class OutgoingLetterController extends Controller
         return redirect()
             ->route('transaction.outgoing.index')
             ->with('success', 'Surat Keluar berhasil diimport.');
+    }
+    public function getNextAgendaNumber()
+    {
+        // Ensure agenda_number is treated as an integer
+        $last = Letter::where('type', 'outgoing')
+            ->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), 'desc')
+            ->first();
+
+        if ($last) {
+            return (int) $last->agenda_number + 1;
+        } else {
+            return 1;
+        }
+    }
+    public function getSecondToLastAgendaNumber()
+    {
+        // Fetch the last two agenda numbers, ordered descending
+        $lastTwo = Letter::where('type', 'outgoing')
+            ->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), 'desc')
+            ->take(2)
+            ->pluck('agenda_number');
+
+        // Check if there are at least two records
+        if ($lastTwo->count() >= 2 && $lastTwo[1] <= $lastTwo[0]) {
+            return (int) $lastTwo[0] + 1; // The second-to-last agenda number
+        } else {
+            return (int) $lastTwo[0] + 1; // No records found
+        }
     }
 }

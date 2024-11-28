@@ -2,7 +2,7 @@
 
 return [
     'notaris' => [
-        'nota_number' => 'NO. NOTARIS',
+        'nota_number' => 'NO. NOTA DINAS',
         'nota_date' => 'TANGGAL',
         'description' => 'PERIHAL',
         'from' => 'DARI',

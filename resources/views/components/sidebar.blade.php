@@ -82,7 +82,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('menu.header.other_menu') }}</span>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.*') ? 'active open' : '' }}">
+        {{-- <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-images"></i>
                 <div data-i18n="{{ __('menu.gallery.menu') }}">{{ __('menu.gallery.menu') }}</div>
@@ -101,7 +101,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
         @if (auth()->user()->role == 'admin')
             <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.*') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">

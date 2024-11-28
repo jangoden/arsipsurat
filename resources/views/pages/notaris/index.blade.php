@@ -11,42 +11,26 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            {{-- <div class="row">
-                <div class="col">
-                    <div class="mb-3">
-                        <label class="form-label">{{ __('menu.general.action') }}</label>
-                        <div class="row">
-                            <div class="col">
-                                <a href="
-                                        {{ route('notaris.import') }}
-                                        "
-                                    target="_blank" class="btn btn-primary">
-                                    {{ __('menu.general.print') }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>{{ __('menu.general.no') }}</th>
-                        <th>
-                            {{ __('model.notaris.nota_number') }}
-                            @if ($sort == 'nota_number' && $order == 'asc')
+                        <th>{{ __('menu.general.no') }}
+                            @if ($sort == 'id' && $order == 'asc')
                                 <a
-                                    href="{{ route('notaris.index', ['sort' => 'nota_number', 'order' => 'desc', 'search' => $search]) }}">
+                                    href="{{ route('notaris.index', ['sort' => 'id', 'order' => 'desc', 'search' => $search]) }}">
                                     <i class='bx bx-up-arrow-alt text-warning'></i>ASC
                                 </a>
-                            @elseif ($sort == 'nota_number' && $order == 'desc')
+                            @elseif ($sort == 'id' && $order == 'desc')
                                 <a
-                                    href="{{ route('notaris.index', ['sort' => 'nota_number', 'order' => 'asc', 'search' => $search]) }}">
+                                    href="{{ route('notaris.index', ['sort' => 'id  ', 'order' => 'asc', 'search' => $search]) }}">
                                     <i class='bx bx-down-arrow-alt text-warning'></i>DESC
                                 </a>
                             @endif
+                        </th>
+                        <th>
+                            {{ __('model.notaris.nota_number')}}
                         </th>
                         <th>{{ __('model.notaris.nota_date') }}</th>
                         <th>{{ __('model.notaris.description') }}</th>
@@ -63,7 +47,7 @@
                         @foreach ($data as $notaris)
                             <tr>
                                 <td>
-                                    {{ $no++ }}
+                                    {{ $notaris->id }}
                                 </td>
                                 <td class="text-wrap">
                                     <strong>{{ $notaris->nota_number }}</strong>

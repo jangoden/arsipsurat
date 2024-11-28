@@ -20,7 +20,7 @@ class NotarisController extends Controller
     public function index(Request $request): View
     {
         $search = $request->search;
-        $sort = $request->get('sort', 'nota_number');
+        $sort = $request->get('sort', 'id');
         $order = $request->get('order', 'asc');
 
         $data = Notaris::render($search, $sort, $order);

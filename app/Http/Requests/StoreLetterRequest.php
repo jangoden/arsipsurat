@@ -21,7 +21,6 @@ class StoreLetterRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'agenda_number' => __('model.letter.agenda_number'),
             'from' => __('model.letter.from'),
             'to' => __('model.letter.to'),
             'reference_number' => __('model.letter.reference_number'),
@@ -41,7 +40,6 @@ class StoreLetterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'agenda_number' => ['required'],
             'from' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
             'to' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
             'type' => ['required'],
