@@ -1,173 +1,250 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://avatars.githubusercontent.com/u/87377917?s=200&v=4" width="200" alt="404NFID Logo"></a></p>
+# SIKASIF – Ciamis Regency KPU
 
+### Laravel-Based Correspondence Management System
 
-## Laravel Surat Menyurat v1
+A web application for managing incoming letters, outgoing letters, and dispositions, developed for **KPU Kabupaten Ciamis**.
 
-Web app untuk mengelola surat masuk, keluar, serta disposisinya.
+---
 
-## Features / Fitur
+## Features
 
-- Autentikasi/login-logout
-- Level hak akses (admin, staff)
-- Menu Beranda
-  - Data jumlah surat masuk hari ini
-  - Data jumlah surat keluar hari ini
-  - Data jumlah surat disposisi hari ini
-  - Data jumlah transaksi surat hari ini
-  - Data jumlah pengguna aktif
-  - Data persentase kenaikan/penurunan surat masuk hari ini
-  - Data persentase kenaikan/penurunan surat keluar hari ini
-  - Data persentase kenaikan/penurunan surat disposisi hari ini
-  - Data persentase kenaikan/penurunan transaksi surat hari ini
-- Menu Transaksi Surat Masuk
-  - Menambahkan surat masuk
-  - Mengedit surat masuk
-  - Menghapus surat masuk
-  - Melihat detail surat masuk
-  - Pencarian surat masuk berdasarkan pengirim, nomor surat, atau nomor agenda
-  - Menambahkan lampiran surat masuk
-  - Menghapus lampiran surat masuk
-  - Menambahkan disposisi surat
-  - Menghapus disposisi surat
-- Menu Transaksi Surat Keluar
-  - Menambahkan surat keluar
-  - Mengedit surat keluar
-  - Menghapus surat keluar
-  - Melihat detail surat keluar
-  - Pencarian surat keluar berdasarkan pengirim, nomor surat, atau nomor agenda
-  - Menambahkan lampiran surat keluar
-  - Menghapus lampiran surat keluar
-- Menu Agenda Surat Masuk
-  - Pencarian surat masuk berdasarkan tanggal dibuat
-  - Pencarian surat masuk berdasarkan tanggal surat 
-  - Pencarian surat masuk berdasarkan tanggal surat diterima
-  - Mencetak agenda surat masuk berdasarkan pencarian
-- Menu Agenda Surat Keluar
-  - Pencarian surat keluar berdasarkan tanggal dibuat
-  - Pencarian surat keluar berdasarkan tanggal surat
-  - Mencetak agenda surat keluar berdasarkan pencarian
-- Menu Galeri Surat Masuk
-  - Menampilkan semua lampiran surat masuk
-  - Mengunduh lampiran surat masuk
-- Menu Galeri Surat Keluar
-  - Menampilkan semua lampiran surat keluar
-  - Mengunduh lampiran surat keluar
-- Menu Referensi Klasifikasi Surat
-  - Menambahkan klasifikasi surat
-  - Mengedit klasifikasi surat
-  - Menghapus klasifikasi surat
-- Menu Referensi Status Sifat Surat
-  - Menambahkan status sifat surat
-  - Mengedit status sifat surat
-  - Menghapus status sifat surat
-- Menu Kelola Pengguna **[khusus admin]**
-  - Menambahkan pengguna
-  - Mengedit pengguna
-  - Menonaktifkan pengguna
-  - Menghapus pengguna
-  - Menyetel ulang kata sandi pengguna
-- Halaman Profil
-  - Mengubah nama, email, dan nomor telepon
-  - Mengubah foto profil
-  - Menonaktifkan akun **[khusus staff]**
-- Halaman Pengaturan **[khusus admin]**
-  - Mengatur kata sandi bawaan (saat membuat pengguna baru/setel ulang kata sandi)
-  - Mengatur jumlah data per halaman
-  - Mengatur nama aplikasi
-  - Mengatur nama lembaga/institusi
-  - Mengatur alamat lembaga/institusi
-  - Mengatur nomor telepon lembaga/institusi
-  - Mengatur surel lembaga/institusi
-  - Mengatur nama penanggungjawab
+### Authentication
 
-## Database Schema / Skema Database
-<img src="https://github.com/404NotFoundIndonesia/laravel-surat-menyurat-v1/blob/main/database_schema.png" alt="database schema">
+* Login & Logout
+* User roles: **Admin** & **Staff**
 
-## Installation / Instalasi
-Direkomendasikan menggunakan php > 8.1.0. Pastikan repo ini telah diclone, kemudian buka CLI dan posisikan direktori aktif ke repo ini.
-Silakan pilih salah satu dari dua cara di bawah ini.
+### Dashboard
 
-### Makefile Setup
-Jalankan perintah berikut untuk setup awal
+* Number of incoming letters today
+* Number of outgoing letters today
+* Number of dispositions today
+* Total letter transactions today
+* Number of active users
+* Percentage increase/decrease for:
+
+  * Incoming letters
+  * Outgoing letters
+  * Dispositions
+  * Total transactions
+
+### Incoming Mail Management
+
+* Add incoming mail
+* Edit incoming mail
+* Delete incoming mail
+* View details
+* Search by sender, letter number, or agenda number
+* Add attachments
+* Delete attachments
+* Add dispositions
+* Delete dispositions
+
+### Outgoing Mail Management
+
+* Add outgoing mail
+* Edit outgoing mail
+* Delete outgoing mail
+* View details
+* Search by sender, letter number, or agenda number
+* Add attachments
+* Delete attachments
+
+### Incoming Mail Agenda
+
+* Search by creation date
+* Search by letter date
+* Search by received date
+* Print agenda
+
+### Outgoing Mail Agenda
+
+* Search by creation date
+* Search by letter date
+* Print agenda
+
+### Incoming Mail Gallery
+
+* View all attachments
+* Download attachments
+
+### Outgoing Mail Gallery
+
+* View all attachments
+* Download attachments
+
+### Letter Classification Reference
+
+* Add classification
+* Edit classification
+* Delete classification
+
+### Letter Nature/Status Reference
+
+* Add status
+* Edit status
+* Delete status
+
+### User Management (Admin only)
+
+* Add user
+* Edit user
+* Deactivate user
+* Delete user
+* Reset password
+
+### Profile Page
+
+* Update name, email, and phone number
+* Update profile picture
+* Deactivate account (Staff only)
+
+### Settings (Admin only)
+
+* Configure default password
+* Set pagination limit
+* Set application name
+* Set institution name
+* Set institution address
+* Set institution phone number
+* Set institution email
+* Set responsible person
+
+---
+
+## Database Schema
+
+![Database Schema](https://github.com/404NotFoundIndonesia/laravel-surat-menyurat-v1/blob/main/database_schema.png)
+
+---
+
+## Installation
+
+Recommended PHP version: **> 8.1.0**
+
+Clone the repository, open your terminal, and navigate to the project directory.
+
+You may use **Makefile Setup** or **Manual Setup**.
+
+---
+
+## Makefile Setup
+
+### Initial Setup
+
 ```
 make setup
 ```
-Pastikan Anda telah membuat database baru di MySQL dan silakan sesuaikan file `.env` dengan database Anda.
-Jalankan perintah berikut untuk setup database 
+
+### Configure `.env`
+
+Create a new MySQL database and update the `.env` file.
+
+### Setup Database
+
 ```
 make setup-db
 ```
-Atau jalankan perintah berikut untuk setup database beserta data _dummy_
+
+Or with dummy data:
+
 ```
 make setup-dummy
 ```
-Terakhir, jalankan perintah berikut untuk menjalankan web app
+
+### Run the App
+
 ```
 make run
 ```
 
-### Manual Setup
-Jalankan perintah berikut untuk menginstal dependensi php
+---
+
+## Manual Setup
+
+### Install Dependencies
+
 ```
 composer install
 ```
-Jalankan perintah berikut untuk mengatur _environment variable_
+
+### Copy Environment File
+
 ```
 cp .env.example .env
 ```
-Pastikan Anda telah membuat database baru di MySQL dan silakan sesuaikan file `.env` dengan database Anda.
-Jalankan perintah berikut untuk membuat _key_ untuk web app Anda
+
+### Generate App Key
+
 ```
 php artisan key:generate
 ```
-Jalankan perintah berikut untuk menghubungkan folder public Anda dengan storage
+
+### Link Storage
+
 ```
 php artisan storage:link
 ```
-Jalankan perintah berikut untuk membuat skema database
+
+### Run Migrations
+
 ```
 php artisan migrate
 ```
-Jalankan perintah berikut untuk menambahkan akun (administrator)
+
+### Seed Admin User
+
 ```
 php artisan db:seed --class=UserSeeder
 ```
-Jalankan perintah berikut untuk menambahkan konfigurasi web app
+
+### Seed Config
+
 ```
 php artisan db:seed --class=ConfigSeeder
 ```
-(Opsional) Jalankan perintah berikut untuk menambahkan data-data _dummy_
+
+### (Optional) Seed Dummy Data
+
 ```
 php artisan db:seed
 ```
-Terakhir, jalankan perintah berikut untuk menyalakan web server bawaan laravel 
+
+### Run Server
+
 ```
 php artisan serve
 ```
-Setelah perintah di atas dijalankan, web app Anda bisa sudah bisa diakses
+
+---
 
 ## Login
-Untuk login aplikasi silakan masukkan surel dan kata sandi berikut
 
-| Surel      | admin@admin.com |
-|------------|-----------------|
-| Kata Sandi | admin           |
+Default credentials:
 
-## Language / Bahasa
-Tersedia 2 pilihan bahasa untuk web app ini, bahasa Indonesia dan Inggris.
-Untuk menggantinya, buka file `config/app.php` kemudian ganti nilai pada `locale` menjadi `id` atau `en`.
+| Email    | [admin@admin.com](mailto:admin@admin.com) |
+| -------- | ----------------------------------------- |
+| Password | admin                                     |
 
-## Timezone / Zona Waktu
-Untuk mengganti zona waktu silakan buka file `config/app.php`
-dan ganti nilai pada `timezone` sesuai dengan keinginan Anda.
-Silakan merujuk ke [dokumentasi php](https://www.php.net/manual/en/timezones.php) untuk nilai zona waktu yang bisa digunakan.
+---
 
-## Demonstration / Demo
-Link video untuk proyek ini bisa dilihat di [YouTube](https://www.youtube.com/watch?v=dyatVEGavxo).
+## Language
 
-## Other / Lainnya
-Proyek ini menggunakan admin template [Sneat](https://github.com/themeselection/sneat-html-admin-template-free)
+Supports **English** and **Indonesian**.
 
-## License / Lisensi
+To change language, edit `config/app.php`:
 
-Berlisensi di bawah [MIT license](https://github.com/404NotFoundIndonesia/laravel-surat-menyurat-v1/blob/main/LICENSE).
+```
+'locale' => 'en' // or 'id'
+```
+
+---
+
+## Timezone
+
+Edit timezone in `config/app.php`:
+
+```
+'timezone' => 'Asia/Jakarta'
+```
+
+Or refer to PHP timezone documentation for alternatives.
