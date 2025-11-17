@@ -241,18 +241,15 @@ class IncomingLetterController extends Controller
     }
     public function getSecondToLastAgendaNumber()
     {
-        // Fetch the last two agenda numbers, ordered descending
-        $lastTwo = Letter::where('type', 'incoming')
+        $last = Letter::where('type', 'incoming')
             ->orderBy(DB::raw('CAST(agenda_number AS UNSIGNED)'), 'desc')
-            ->take(2)
-            ->pluck('agenda_number');
+            ->first();
 
-        // Check if there are at least two records
-        if ($lastTwo->count() >= 2 && $lastTwo[1] <= $lastTwo[0]) {
-            return (int) $lastTwo[1] + 1; // The second-to-last agenda number
-        } else {
-            return (int) $lastTwo[0] + 1; // No records found
+        if ($last) {
+            return (int) $last->agenda_number + 1;
         }
+
+        return 1;
     }
 
 }
